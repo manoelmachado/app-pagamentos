@@ -55,4 +55,14 @@ billingCycle.route("summary", (req, res, next) => {
   );
 });
 
+billingCycle.route('get', (req, res, next) => {
+  billingCycle.find({}, (err, docs) => {
+      if (!err) {
+          res.json(docs)
+      } else {
+          res.status(500).json({ errors: [error] })
+      }
+  }).skip(req.query.skip).limit(req.query.limit)
+})
+
 module.exports = billingCycle;
